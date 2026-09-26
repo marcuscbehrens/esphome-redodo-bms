@@ -29,17 +29,15 @@ CONF_CELL_TEMP = "cell_temp"
 CONF_MOSFET_TEMP = "mosfet_temp"
 
 UNIT_AMPS_HOURS = "Ah"
-
 MAX_CELLS = 16
 
-def _cell_voltage_schema(n):
-    return cv.Optional(f"cell_voltage_{n}"): sensor.sensor_schema(
-        unit_of_measurement=UNIT_VOLT,
-        icon=ICON_FLASH,
-        accuracy_decimals=3,
-        device_class=DEVICE_CLASS_VOLTAGE,
-        state_class=STATE_CLASS_MEASUREMENT,
-    )
+_CELL_VOLTAGE_SCHEMA = sensor.sensor_schema(
+    unit_of_measurement=UNIT_VOLT,
+    icon=ICON_FLASH,
+    accuracy_decimals=3,
+    device_class=DEVICE_CLASS_VOLTAGE,
+    state_class=STATE_CLASS_MEASUREMENT,
+)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(CONF_REDODO_BMS_ID): cv.use_id(RedodoBMS),
@@ -89,13 +87,22 @@ CONFIG_SCHEMA = cv.Schema({
         accuracy_decimals=1,
         device_class=DEVICE_CLASS_TEMPERATURE,
     ),
-    **{f"cell_voltage_{i+1}": cv.Optional(f"cell_voltage_{i+1}")(sensor.sensor_schema(
-        unit_of_measurement=UNIT_VOLT,
-        icon=ICON_FLASH,
-        accuracy_decimals=3,
-        device_class=DEVICE_CLASS_VOLTAGE,
-        state_class=STATE_CLASS_MEASUREMENT,
-    )) for i in range(MAX_CELLS)},
+    cv.Optional("cell_voltage_1"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_2"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_3"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_4"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_5"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_6"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_7"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_8"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_9"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_10"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_11"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_12"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_13"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_14"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_15"): _CELL_VOLTAGE_SCHEMA,
+    cv.Optional("cell_voltage_16"): _CELL_VOLTAGE_SCHEMA,
 })
 
 async def to_code(config):
