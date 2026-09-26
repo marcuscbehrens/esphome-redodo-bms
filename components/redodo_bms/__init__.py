@@ -12,13 +12,14 @@ RedodoBMS = redodo_bms_ns.class_(
     ble_client.BLEClientNode
 )
 
-CONFIG_SCHEMA = cv.Schema({
+CONFIG_SCHEMA = cv.ensure_list(cv.Schema({
     cv.GenerateID(): cv.declare_id(RedodoBMS),
     cv.Required(CONF_BLE_CLIENT_ID): cv.use_id(ble_client.BLEClient),
-}).extend(cv.polling_component_schema("60s"))
+}).extend(cv.polling_component_schema("60s")))
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
-    await ble_client.register_ble_node(var, config)
+    for conf in config:
+        var = cg.new_Pvariable(conf[CONF_ID])
+        await cg.register_component(var, conf)
+        await ble_client.register_ble_node(var, conf)
 
