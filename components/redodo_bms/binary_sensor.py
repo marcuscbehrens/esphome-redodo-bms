@@ -10,14 +10,29 @@ CONF_PROBLEM = "problem"
 
 MAX_CELLS = 16
 
+_BALANCING_SCHEMA = binary_sensor.binary_sensor_schema()
+
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(CONF_REDODO_BMS_ID): cv.use_id(RedodoBMS),
     cv.Optional(CONF_PROBLEM): binary_sensor.binary_sensor_schema(
         device_class=DEVICE_CLASS_PROBLEM,
     ),
-    **{f"cell_{i+1}_balancing": cv.Optional(f"cell_{i+1}_balancing")(
-        binary_sensor.binary_sensor_schema()
-    ) for i in range(MAX_CELLS)},
+    cv.Optional("cell_1_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_2_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_3_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_4_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_5_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_6_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_7_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_8_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_9_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_10_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_11_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_12_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_13_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_14_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_15_balancing"): _BALANCING_SCHEMA,
+    cv.Optional("cell_16_balancing"): _BALANCING_SCHEMA,
 })
 
 async def to_code(config):
